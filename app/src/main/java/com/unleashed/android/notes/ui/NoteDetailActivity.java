@@ -1,4 +1,4 @@
-package com.unleashed.android.notes;
+package com.unleashed.android.notes.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+
+import com.unleashed.android.notes.R;
 
 /**
  * An activity representing a single Note detail screen. This

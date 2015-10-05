@@ -1,4 +1,4 @@
-package com.unleashed.android.notes;
+package com.unleashed.android.notes.ui;
 
 import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.unleashed.android.notes.R;
 import com.unleashed.android.notes.dummy.DummyContent;
 
 /**
@@ -40,17 +41,39 @@ public class NoteDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // First check if we did get the ID.
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+
+            String id_recieved_via_intent = getArguments().getString(ARG_ITEM_ID);
+
+            if(id_recieved_via_intent.contentEquals("-1")){
+                // Code block to create a new Notes (id would be -1)
+
+                if (appBarLayout != null) {
+                    appBarLayout.setTitle("Add New Note");
+                }
+
+
+
+            }else{
+                // Code block to open an existing notes
+
+
+
+                // Load the dummy content specified by the fragment
+                // arguments. In a real-world scenario, use a Loader
+                // to load content from a content provider.
+                mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+
+
+                if (appBarLayout != null) {
+                    appBarLayout.setTitle(mItem.content);
+                }
             }
+
         }
     }
 

@@ -1,4 +1,4 @@
-package com.unleashed.android.notes;
+package com.unleashed.android.notes.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.unleashed.android.notes.R;
+import com.unleashed.android.notes.card.Card;
+import com.unleashed.android.notes.card.CardArrayAdapter;
 import com.unleashed.android.notes.dummy.DummyContent;
 
 /**
@@ -19,6 +22,12 @@ import com.unleashed.android.notes.dummy.DummyContent;
  * interface.
  */
 public class NoteListFragment extends ListFragment {
+
+
+    private static final String TAG = "CardListActivity";
+    private CardArrayAdapter cardArrayAdapter;
+    private ListView listView;
+
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -70,12 +79,31 @@ public class NoteListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+
+//        listView = (ListView)findViewById(R.id.card_listView);
+//
+//        listView.addHeaderView(new View(this));
+//        listView.addFooterView(new View(this));
+//
+        cardArrayAdapter = new CardArrayAdapter(getActivity().getApplicationContext(), R.layout.list_item_card);
+//
+        for (int i = 0; i < 10; i++) {
+            Card card = new Card("Card " + (i+1) + " Line 1", "Card " + (i+1) + " Line 2");
+            cardArrayAdapter.add(card);
+        }
+//        listView.setAdapter(cardArrayAdapter);
+
+
+
+        setListAdapter(cardArrayAdapter);
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));
+//        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+//                getActivity(),
+//                android.R.layout.simple_list_item_activated_1,
+//                android.R.id.text1,
+//                DummyContent.ITEMS));
     }
 
     @Override

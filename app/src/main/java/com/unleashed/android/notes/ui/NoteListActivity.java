@@ -1,4 +1,4 @@
-package com.unleashed.android.notes;
+package com.unleashed.android.notes.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.ListView;
+
+import com.unleashed.android.notes.R;
+import com.unleashed.android.notes.card.Card;
+import com.unleashed.android.notes.card.CardArrayAdapter;
 
 
 /**
@@ -27,6 +32,7 @@ import android.view.View;
  */
 public class NoteListActivity extends AppCompatActivity
         implements NoteListFragment.Callbacks {
+
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -50,10 +56,10 @@ public class NoteListActivity extends AppCompatActivity
             public void onClick(View view) {
 
                 // Add code here to open new dialog box to enter item notes
-                // showNewNotesDialog();
+                showNewNotesDialog();
 
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                // Snackbar is a toast message kind of message at the bottom of the screen.
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -72,6 +78,16 @@ public class NoteListActivity extends AppCompatActivity
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
+    }
+
+    private void showNewNotesDialog() {
+        String new_note_id = "-1";
+
+        // Call the Detailed Notes Activity with "new notes" id.
+        Intent detailIntent = new Intent(this, NoteDetailActivity.class);
+        detailIntent.putExtra(NoteDetailFragment.ARG_ITEM_ID, new_note_id);
+        startActivity(detailIntent);
+
     }
 
     /**
