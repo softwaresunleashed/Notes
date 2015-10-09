@@ -1,16 +1,17 @@
 package com.unleashed.android.notes.ui;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.unleashed.android.notes.R;
 import com.unleashed.android.notes.card.Card;
 import com.unleashed.android.notes.card.CardArrayAdapter;
 import com.unleashed.android.notes.dummy.DummyContent;
+import com.unleashed.android.notes.notesDB.ListingsDB;
 
 /**
  * A list fragment representing a list of Notes. This fragment
@@ -27,6 +28,7 @@ public class NoteListFragment extends ListFragment {
     private static final String TAG = "CardListActivity";
     private CardArrayAdapter cardArrayAdapter;
     private ListView listView;
+    public ListingsDB notesDB;
 
 
     /**
@@ -65,6 +67,7 @@ public class NoteListFragment extends ListFragment {
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
         public void onItemSelected(String id) {
+
         }
     };
 
@@ -81,30 +84,33 @@ public class NoteListFragment extends ListFragment {
 
 
 
-
-//        listView = (ListView)findViewById(R.id.card_listView);
-//
-//        listView.addHeaderView(new View(this));
-//        listView.addFooterView(new View(this));
-//
         cardArrayAdapter = new CardArrayAdapter(getActivity().getApplicationContext(), R.layout.list_item_card);
-//
-        for (int i = 0; i < 10; i++) {
-            Card card = new Card("Card " + (i+1));
-            cardArrayAdapter.add(card);
+
+
+        // Invoke Database
+        notesDB = new ListingsDB(getActivity().getApplicationContext());
+
+        Cursor cur = notesDB.retrieveAllRecords();
+        if (cur != null && cur.moveToFirst()) {
+            do {
+                String noteHeading = cur.getString(1);        // Note Heading
+                String noteDescription = cur.getString(2);       // Note Description
+
+                Card card = new Card(noteHeading, noteDescription);
+                cardArrayAdapter.add(card);
+
+                //Toast.makeText(this, "\nEmployee ID: " + c.getString(0) + "\nEmployee Name: " + c.getString(1) + "\nEmployee Salary: " + c.getString(2), Toast.LENGTH_LONG).show();
+            }
+            while (cur.moveToNext());
         }
-//        listView.setAdapter(cardArrayAdapter);
+
 
 
 
         setListAdapter(cardArrayAdapter);
-        // TODO: replace with a real list adapter.
-//        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-//                getActivity(),
-//                android.R.layout.simple_list_item_activated_1,
-//                android.R.id.text1,
-//                DummyContent.ITEMS));
+
     }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

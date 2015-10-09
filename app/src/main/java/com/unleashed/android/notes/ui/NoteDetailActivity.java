@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.unleashed.android.notes.R;
+import com.unleashed.android.notes.notesDB.ListingsDB;
 
 /**
  * An activity representing a single Note detail screen. This
@@ -22,6 +23,12 @@ import com.unleashed.android.notes.R;
  */
 public class NoteDetailActivity extends AppCompatActivity {
 
+
+    // Invoke Database
+    private ListingsDB notesDB;
+    private NoteDetailFragment fragment;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +36,27 @@ public class NoteDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
+        // Get a handle of DB
+        notesDB = new ListingsDB(getApplicationContext());
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
+                try{
 
-               // Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    String NotesHeading = fragment.getNotesHeading();
+                    String NotesDetails = fragment.getNotesDescription();
+
+                    notesDB.insertRecord(NotesHeading, NotesDetails);
+
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+                // Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -58,12 +78,18 @@ public class NoteDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
             arguments.putString(NoteDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(NoteDetailFragment.ARG_ITEM_ID));
-            NoteDetailFragment fragment = new NoteDetailFragment();
+
+            fragment = new NoteDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.note_detail_container, fragment)
                     .commit();
         }
+
+
+
+
+
     }
 
     @Override

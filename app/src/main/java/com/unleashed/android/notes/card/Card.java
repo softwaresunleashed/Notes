@@ -5,19 +5,19 @@ package com.unleashed.android.notes.card;
  */
 public class Card {
     private String NotesHeading;
-    //private String NotesDescription;
+    private String NotesDescription;
 
-    public Card(String notesHeading) {
+    public Card(String notesHeading, String notesDescription) {
         this.NotesHeading = notesHeading;
-        //this.NotesDescription = line2;
+        this.NotesDescription = notesDescription;
     }
 
     public String getNotesHeading() {
         return NotesHeading;
     }
 
-//    public String getLine2() {
-//        return NotesDescription;
-//    }
+    public String getNotesDescription() {
+        return NotesDescription;
+    }
 
 }

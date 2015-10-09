@@ -1,17 +1,18 @@
 package com.unleashed.android.notes.ui;
 
 import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.unleashed.android.notes.R;
 import com.unleashed.android.notes.dummy.DummyContent;
+import com.unleashed.android.notes.notesDB.ListingsDB;
 
 /**
  * A fragment representing a single Note detail screen.
@@ -33,12 +34,15 @@ public class NoteDetailFragment extends Fragment {
 
     private EditText heading;
     private EditText description;
+    public static Context mFragmentContext;
+    private ListingsDB notesDB;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public NoteDetailFragment() {
+
     }
 
     @Override
@@ -56,11 +60,10 @@ public class NoteDetailFragment extends Fragment {
             if(id_recieved_via_intent.contentEquals("-1")){
                 // Code block to create a new Notes (id would be -1)
 
+
                 if (appBarLayout != null) {
                     appBarLayout.setTitle("Add New Note");
                 }
-
-
 
             }else{
                 // Code block to open an existing notes
@@ -70,6 +73,7 @@ public class NoteDetailFragment extends Fragment {
                 // Load the dummy content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
+
                 mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
 
@@ -86,6 +90,9 @@ public class NoteDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_note_detail, container, false);
 
+
+        mFragmentContext = rootView.getContext();
+
         heading = (EditText)rootView.findViewById(R.id.note_heading);
         description = (EditText)rootView.findViewById(R.id.note_description);
 
@@ -97,5 +104,16 @@ public class NoteDetailFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+
+
+    public String getNotesHeading(){
+        return heading.getText().toString();
+    }
+
+
+    public String getNotesDescription(){
+        return description.getText().toString();
     }
 }

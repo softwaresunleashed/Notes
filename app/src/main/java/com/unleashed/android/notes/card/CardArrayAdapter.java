@@ -7,12 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.unleashed.android.notes.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,7 @@ public class CardArrayAdapter  extends ArrayAdapter<Card> {
 
     static class CardViewHolder {
         TextView line1;
-        //TextView line2;
+        TextView line2;
     }
 
     public CardArrayAdapter(Context context, int textViewResourceId) {
@@ -58,7 +55,7 @@ public class CardArrayAdapter  extends ArrayAdapter<Card> {
             row = inflater.inflate(R.layout.list_item_card, parent, false);
             viewHolder = new CardViewHolder();
             viewHolder.line1 = (TextView) row.findViewById(R.id.tv_NotesHeading);
-            //viewHolder.line2 = (TextView) row.findViewById(R.id.line2);
+            viewHolder.line2 = (TextView) row.findViewById(R.id.tv_NotesDescription);
             row.setTag(viewHolder);
         } else {
             viewHolder = (CardViewHolder)row.getTag();

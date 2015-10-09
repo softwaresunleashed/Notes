@@ -2,16 +2,13 @@ package com.unleashed.android.notes.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.widget.ListView;
 
 import com.unleashed.android.notes.R;
-import com.unleashed.android.notes.card.Card;
-import com.unleashed.android.notes.card.CardArrayAdapter;
+import com.unleashed.android.notes.notesDB.ListingsDB;
 
 
 /**
@@ -39,6 +36,8 @@ public class NoteListActivity extends AppCompatActivity
      * device.
      */
     private boolean mTwoPane;
+
+    private ListingsDB notesDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +75,11 @@ public class NoteListActivity extends AppCompatActivity
                     .findFragmentById(R.id.note_list))
                     .setActivateOnItemClick(true);
         }
+
+
+        // Invoke Database
+        notesDB = new ListingsDB(getApplicationContext());
+
 
         // TODO: If exposing deep links into your app, handle intents here.
     }

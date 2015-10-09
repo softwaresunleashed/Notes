@@ -16,7 +16,9 @@
         android:paddingBottom="15dp"
         android:paddingRight="15dp"
         android:background="@drawable/card_background_selector"
-        android:descendantFocusability="afterDescendants">
+        android:descendantFocusability="afterDescendants"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp">
 
         <TextView
             android:id="@+id/tv_NotesHeading"
@@ -25,7 +27,12 @@
             android:text="Text line 1"
             android:textColor="@android:color/black" />
 
-
+        <TextView
+            android:id="@+id/tv_NotesDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Text line 1"
+            android:textColor="@android:color/black" />
 
 
     </LinearLayout>
