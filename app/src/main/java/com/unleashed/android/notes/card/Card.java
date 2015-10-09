@@ -4,20 +4,20 @@ package com.unleashed.android.notes.card;
  * Created by OLX - Sudhanshu on 05-10-2015.
  */
 public class Card {
-    private String line1;
-    private String line2;
+    private String NotesHeading;
+    //private String NotesDescription;
 
-    public Card(String line1, String line2) {
-        this.line1 = line1;
-        this.line2 = line2;
+    public Card(String notesHeading) {
+        this.NotesHeading = notesHeading;
+        //this.NotesDescription = line2;
     }
 
-    public String getLine1() {
-        return line1;
+    public String getNotesHeading() {
+        return NotesHeading;
     }
 
-    public String getLine2() {
-        return line2;
-    }
+//    public String getLine2() {
+//        return NotesDescription;
+//    }
 
 }

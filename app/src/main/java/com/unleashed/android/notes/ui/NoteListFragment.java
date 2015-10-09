@@ -90,7 +90,7 @@ public class NoteListFragment extends ListFragment {
         cardArrayAdapter = new CardArrayAdapter(getActivity().getApplicationContext(), R.layout.list_item_card);
 //
         for (int i = 0; i < 10; i++) {
-            Card card = new Card("Card " + (i+1) + " Line 1", "Card " + (i+1) + " Line 2");
+            Card card = new Card("Card " + (i+1));
             cardArrayAdapter.add(card);
         }
 //        listView.setAdapter(cardArrayAdapter);

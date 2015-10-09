@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.unleashed.android.notes.R;
@@ -29,6 +30,9 @@ public class NoteDetailFragment extends Fragment {
      * The dummy content this fragment is presenting.
      */
     private DummyContent.DummyItem mItem;
+
+    private EditText heading;
+    private EditText description;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -82,9 +86,14 @@ public class NoteDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_note_detail, container, false);
 
+        heading = (EditText)rootView.findViewById(R.id.note_heading);
+        description = (EditText)rootView.findViewById(R.id.note_description);
+
+
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.note_detail)).setText(mItem.details);
+            heading.setText(mItem.content);
+            description.setText(mItem.details);
         }
 
         return rootView;

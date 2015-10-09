@@ -13,7 +13,7 @@ android:background="#e2e4fe">
     android:layout_height="wrap_content"
     android:listSelector="@android:color/transparent"
     android:cacheColorHint="@android:color/transparent"
-    android:divider="@null"
+    android:divider="@android:color/transparent"
     android:dividerHeight="0dp" />
 
 

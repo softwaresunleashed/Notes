@@ -1,9 +1,50 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/note_detail"
-    style="?android:attr/textAppearanceLarge"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context=".NoteDetailFragment" />
+    android:elevation="5dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Heading"
+        android:id="@+id/textView"
+        android:textColor="#0000ff"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"/>
+
+    <EditText
+        android:id="@+id/note_heading"
+        style="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:textColor="#0000ff"
+        android:layout_margin="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:id="@+id/textView2"
+        android:textColor="#0000ff"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:elevation="2dp"
+        android:id="@+id/note_description"
+        style="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black"
+        android:layout_margin="5dp" />
+
+
+</LinearLayout>
+
+
