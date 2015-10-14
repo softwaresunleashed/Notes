@@ -6,10 +6,13 @@ package com.unleashed.android.notes.card;
 public class Card {
     private String NotesHeading;
     private String NotesDescription;
+    private String NotesLastUpdate;
 
-    public Card(String notesHeading, String notesDescription) {
+    public Card(String notesHeading, String notesDescription, String notesLastUpdate) {
         this.NotesHeading = notesHeading;
         this.NotesDescription = notesDescription;
+        this.NotesLastUpdate = notesLastUpdate;
+
     }
 
     public String getNotesHeading() {
@@ -18,6 +21,10 @@ public class Card {
 
     public String getNotesDescription() {
         return NotesDescription;
+    }
+
+    public String getNotesLastUpdated() {
+        return NotesLastUpdate;
     }
 
 }

@@ -28,7 +28,7 @@ public class NoteListFragment extends ListFragment {
     private static final String TAG = "CardListActivity";
     private CardArrayAdapter cardArrayAdapter;
     private ListView listView;
-    public ListingsDB notesDB;
+    private ListingsDB notesDB;
 
 
     /**
@@ -86,17 +86,35 @@ public class NoteListFragment extends ListFragment {
 
         cardArrayAdapter = new CardArrayAdapter(getActivity().getApplicationContext(), R.layout.list_item_card);
 
+        //updateNotesFromDB();
 
-        // Invoke Database
-        notesDB = new ListingsDB(getActivity().getApplicationContext());
+
+
+
+
+    }
+
+    private void updateNotesFromDB() {
+
+        
+
+        if(notesDB == null){
+
+            // Invoke Database
+            notesDB = new ListingsDB(getActivity().getApplicationContext());
+
+        }
+
+
 
         Cursor cur = notesDB.retrieveAllRecords();
         if (cur != null && cur.moveToFirst()) {
             do {
                 String noteHeading = cur.getString(1);        // Note Heading
                 String noteDescription = cur.getString(2);       // Note Description
+                String noteDate = cur.getString(3);       // Note Date
 
-                Card card = new Card(noteHeading, noteDescription);
+                Card card = new Card(noteHeading, noteDescription, noteDate);
                 cardArrayAdapter.add(card);
 
                 //Toast.makeText(this, "\nEmployee ID: " + c.getString(0) + "\nEmployee Name: " + c.getString(1) + "\nEmployee Salary: " + c.getString(2), Toast.LENGTH_LONG).show();
@@ -104,10 +122,8 @@ public class NoteListFragment extends ListFragment {
             while (cur.moveToNext());
         }
 
-
-
-
         setListAdapter(cardArrayAdapter);
+
 
     }
 
@@ -121,6 +137,9 @@ public class NoteListFragment extends ListFragment {
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
+
+        // Set the dividers to null
+        getListView().setDivider(null);
     }
 
     @Override
@@ -182,4 +201,14 @@ public class NoteListFragment extends ListFragment {
 
         mActivatedPosition = position;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        updateNotesFromDB();
+    }
+
+
 }

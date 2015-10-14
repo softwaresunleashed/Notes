@@ -22,8 +22,9 @@ public class CardArrayAdapter  extends ArrayAdapter<Card> {
     private List<Card> cardList = new ArrayList<Card>();
 
     static class CardViewHolder {
-        TextView line1;
-        TextView line2;
+        TextView line1;         // Notes Heading
+        TextView line2;         // Notes Description
+        TextView line3;         // Last Updated
     }
 
     public CardArrayAdapter(Context context, int textViewResourceId) {
@@ -56,13 +57,15 @@ public class CardArrayAdapter  extends ArrayAdapter<Card> {
             viewHolder = new CardViewHolder();
             viewHolder.line1 = (TextView) row.findViewById(R.id.tv_NotesHeading);
             viewHolder.line2 = (TextView) row.findViewById(R.id.tv_NotesDescription);
+            viewHolder.line3 = (TextView) row.findViewById(R.id.tv_lastupdated);
             row.setTag(viewHolder);
         } else {
             viewHolder = (CardViewHolder)row.getTag();
         }
         Card card = getItem(position);
         viewHolder.line1.setText(card.getNotesHeading());
-        //viewHolder.line2.setText(card.getLine2());
+        viewHolder.line2.setText(card.getNotesDescription());
+        viewHolder.line3.setText(card.getNotesLastUpdated());
         return row;
     }
 

@@ -12,6 +12,8 @@ import android.view.View;
 import com.unleashed.android.notes.R;
 import com.unleashed.android.notes.notesDB.ListingsDB;
 
+import java.util.Calendar;
+
 /**
  * An activity representing a single Note detail screen. This
  * activity is only used on handset devices. On tablet-size devices,
@@ -46,12 +48,25 @@ public class NoteDetailActivity extends AppCompatActivity {
 
 
                 try{
-
                     String NotesHeading = fragment.getNotesHeading();
                     String NotesDetails = fragment.getNotesDescription();
 
-                    notesDB.insertRecord(NotesHeading, NotesDetails);
+                    // Generate Date and insert in DB
+                    Calendar cal = Calendar.getInstance();
+                    String year = String.format("%02d", cal.get(Calendar.YEAR)); ;
+                    String month = String.format("%02d", cal.get(Calendar.MONTH)+1);
+                    String day = String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
+                    String hour = String.format("%02d", cal.get(Calendar.HOUR));
+                    String minutes = String.format("%02d", cal.get(Calendar.MINUTE));
+                    String seconds = String.format("%02d", cal.get(Calendar.SECOND));
 
+                    String NotesDate = year + "-" + month + "-" + day + "-" + hour + "-" + minutes + "-" + seconds;
+
+
+                    // Insert Record in DB
+                    notesDB.insertRecord(NotesHeading, NotesDetails, NotesDate);
+
+                    finish();
                 }catch (Exception ex){
                     ex.printStackTrace();
                 }

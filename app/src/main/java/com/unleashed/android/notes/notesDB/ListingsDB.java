@@ -23,10 +23,10 @@ public class ListingsDB {
     // DB Table's Columns - Configure as per need.
     public static final String Col1 = "NotesHeading";
     public static final String Col2 = "NotesDescription";
-
+    public static final String Col3 = "NotesLastUpdated";
 
     // Create Table SQL String
-    private static final String create_table = "create table " + tablename + " (Id integer primary key AUTOINCREMENT, " + Col1 + " text not null, " + Col2 + " text not null"  +");";
+    private static final String create_table = "create table " + tablename + " (Id integer primary key AUTOINCREMENT, " + Col1 + " text not null, " + Col2 + " text not null, " + Col3 + " text not null "  +");";
 
 
 
@@ -60,7 +60,7 @@ public class ListingsDB {
     }
 
     // Declaring the insertRecord() method to add the record details into the database
-    public long insertRecord(String col1_value, String col2_value) {
+    public long insertRecord(String col1_value, String col2_value, String col3_value) {
         ContentValues cv = new ContentValues();
 
         long id = -1;
@@ -68,7 +68,7 @@ public class ListingsDB {
 
         cv.put(Col1, col1_value);
         cv.put(Col2, col2_value);
-
+        cv.put(Col3, col3_value);
 
         // Connect to database before performing any operation.
         try {
@@ -92,19 +92,19 @@ public class ListingsDB {
             ex.printStackTrace();
         }
 
-       return database.query(tablename, new String[]{Id, Col1, Col2}, null, null, null, null, null);
+       return database.query(tablename, new String[]{Id, Col1, Col2, Col3}, null, null, null, null, null);
 
     }
 
     // Declaring the retrieveRecord() method to retrieve the details of a particular record id.
-    public Cursor retrieveRecord(String recordId) {
+    public Cursor retrieveRecord(String id) {
 
         Cursor c = null;
 
         try{
             this.connect();
 
-            c = database.query(true, tablename, new String[]{Id, Col1, Col2}, Col1 + "=" + "\"" + recordId + "\"", null, null, null, null, null);
+            c = database.query(true, tablename, new String[]{Id, Col1, Col2, Col3}, Id + "=" + "\"" + id + "\"", null, null, null, null, null);
 
             if (c != null) {
                 c.moveToFirst();
@@ -135,12 +135,13 @@ public class ListingsDB {
 
     // Declaring the updateEmployee() method to update an employee details from the database.
     // Update the record on the basis of ID....get the ID first and then call this function to update values of cols
-    public boolean updateRecord(long id, String col1_value, String col2_value) throws SQLException {
+    public boolean updateRecord(long id, String col1_value, String col2_value, String col3_value) throws SQLException {
         this.connect();
 
         ContentValues cvalues = new ContentValues();
         cvalues.put(Col1, col1_value);
         cvalues.put(Col2, col2_value);
+        cvalues.put(Col3, col3_value);
 
         // Update the record on the basis of ID....get the ID first and then call this function to update values of cols
         return database.update(tablename, cvalues, Id + "=" + id, null) > 0;

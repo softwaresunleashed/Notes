@@ -2,6 +2,7 @@ package com.unleashed.android.notes.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -37,6 +38,9 @@ public class NoteDetailFragment extends Fragment {
     public static Context mFragmentContext;
     private ListingsDB notesDB;
 
+    private String noteHeading;
+    private String noteDescription;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -48,6 +52,10 @@ public class NoteDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        // Invoke Database
+        notesDB = new ListingsDB(getActivity().getApplicationContext());
 
         // First check if we did get the ID.
         if (getArguments().containsKey(ARG_ITEM_ID)) {
@@ -63,6 +71,7 @@ public class NoteDetailFragment extends Fragment {
 
                 if (appBarLayout != null) {
                     appBarLayout.setTitle("Add New Note");
+                    appBarLayout.setBackgroundResource(R.drawable.notes_background);
                 }
 
             }else{
@@ -74,11 +83,15 @@ public class NoteDetailFragment extends Fragment {
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
 
-                mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+                //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
+                Cursor cur = notesDB.retrieveRecord(getArguments().getString(ARG_ITEM_ID));
+                noteHeading = cur.getString(1);
+                noteDescription = cur.getString(2);
 
                 if (appBarLayout != null) {
                     appBarLayout.setTitle(mItem.content);
+                    appBarLayout.setBackgroundResource(R.drawable.notes_background);
                 }
             }
 
@@ -99,8 +112,8 @@ public class NoteDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            heading.setText(mItem.content);
-            description.setText(mItem.details);
+            heading.setText(noteHeading);
+            description.setText(noteDescription);
         }
 
         return rootView;

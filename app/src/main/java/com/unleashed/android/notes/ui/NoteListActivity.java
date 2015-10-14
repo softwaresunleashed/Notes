@@ -120,4 +120,6 @@ public class NoteListActivity extends AppCompatActivity
             startActivity(detailIntent);
         }
     }
+
+
 }
