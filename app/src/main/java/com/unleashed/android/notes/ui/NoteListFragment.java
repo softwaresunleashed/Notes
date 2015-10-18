@@ -96,13 +96,17 @@ public class NoteListFragment extends ListFragment {
 
     private void updateNotesFromDB() {
 
-        
+
+        cardArrayAdapter.clear();
+
+        //setListAdapter(cardArrayAdapter);
+        //cardArrayAdapter.notifyDataSetChanged();
+
+
 
         if(notesDB == null){
-
             // Invoke Database
             notesDB = new ListingsDB(getActivity().getApplicationContext());
-
         }
 
 
