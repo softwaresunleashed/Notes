@@ -98,9 +98,9 @@ public class NoteListFragment extends ListFragment {
 
 
         cardArrayAdapter.clear();
+        cardArrayAdapter.notifyDataSetChanged();
+        setListAdapter(cardArrayAdapter);
 
-        //setListAdapter(cardArrayAdapter);
-        //cardArrayAdapter.notifyDataSetChanged();
 
 
 
@@ -109,6 +109,12 @@ public class NoteListFragment extends ListFragment {
             notesDB = new ListingsDB(getActivity().getApplicationContext());
         }
 
+
+
+        if(cardArrayAdapter != null){
+            cardArrayAdapter.clear();
+            cardArrayAdapter.notifyDataSetChanged();
+        }
 
 
         Cursor cur = notesDB.retrieveAllRecords();

@@ -90,7 +90,7 @@ public class NoteDetailFragment extends Fragment {
                 noteDescription = cur.getString(2);
 
                 if (appBarLayout != null) {
-                    appBarLayout.setTitle(mItem.content);
+                    appBarLayout.setTitle(noteHeading);
                     appBarLayout.setBackgroundResource(R.drawable.notes_background);
                 }
             }
@@ -106,15 +106,15 @@ public class NoteDetailFragment extends Fragment {
 
         mFragmentContext = rootView.getContext();
 
+        // Fill in the Heading and Text Obtained from DB.
         heading = (EditText)rootView.findViewById(R.id.note_heading);
+        heading.setText(noteHeading);
+
         description = (EditText)rootView.findViewById(R.id.note_description);
+        description.setText(noteDescription);
 
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            heading.setText(noteHeading);
-            description.setText(noteDescription);
-        }
+
 
         return rootView;
     }
