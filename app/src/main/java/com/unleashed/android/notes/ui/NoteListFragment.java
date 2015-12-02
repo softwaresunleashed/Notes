@@ -86,7 +86,7 @@ public class NoteListFragment extends ListFragment {
 
         cardArrayAdapter = new CardArrayAdapter(getActivity().getApplicationContext(), R.layout.list_item_card);
 
-        //updateNotesFromDB();
+        updateNotesFromDB();
 
 
 
@@ -217,7 +217,7 @@ public class NoteListFragment extends ListFragment {
     public void onResume() {
         super.onResume();
 
-        updateNotesFromDB();
+        //updateNotesFromDB();
     }
 
 
