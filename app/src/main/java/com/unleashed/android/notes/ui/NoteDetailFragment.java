@@ -113,9 +113,6 @@ public class NoteDetailFragment extends Fragment {
         description = (EditText)rootView.findViewById(R.id.note_description);
         description.setText(noteDescription);
 
-
-
-
         return rootView;
     }
 
