@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.unleashed.android.notes.R;
-import com.unleashed.android.notes.dummy.DummyContent;
 import com.unleashed.android.notes.notesDB.ListingsDB;
 
 /**
@@ -29,9 +28,9 @@ public class NoteDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
 
     /**
-     * The dummy content this fragment is presenting.
+     * The notecontents content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+
 
     private EditText heading;
     private EditText description;
@@ -79,11 +78,11 @@ public class NoteDetailFragment extends Fragment {
 
 
 
-                // Load the dummy content specified by the fragment
+                // Load the notecontents content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
 
-                //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+                //mItem = NotesContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
                 Cursor cur = notesDB.retrieveRecord(getArguments().getString(ARG_ITEM_ID));
                 noteHeading = cur.getString(1);
