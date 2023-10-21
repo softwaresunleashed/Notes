@@ -23,13 +23,17 @@ import java.util.Calendar;
  * This activity is mostly just a 'shell' activity containing nothing
  * more than a {@link NoteDetailFragment}.
  */
-public class NoteDetailActivity extends AppCompatActivity {
+public class NoteDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
 
     // Invoke Database
     private ListingsDB notesDB;
     private NoteDetailFragment fragment;
 
+
+    public interface OnSaveNotesToDb{
+        public void onSaveNotesToDb();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,39 +45,9 @@ public class NoteDetailActivity extends AppCompatActivity {
         // Get a handle of DB
         notesDB = new ListingsDB(getApplicationContext());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                try{
-                    String NotesHeading = fragment.getNotesHeading();
-                    String NotesDetails = fragment.getNotesDescription();
-
-                    // Generate Date and insert in DB
-                    Calendar cal = Calendar.getInstance();
-                    String year = String.format("%02d", cal.get(Calendar.YEAR)); ;
-                    String month = String.format("%02d", cal.get(Calendar.MONTH)+1);
-                    String day = String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
-                    String hour = String.format("%02d", cal.get(Calendar.HOUR));
-                    String minutes = String.format("%02d", cal.get(Calendar.MINUTE));
-                    String seconds = String.format("%02d", cal.get(Calendar.SECOND));
-
-                    String NotesDate = year + "-" + month + "-" + day + "-" + hour + "-" + minutes + "-" + seconds;
-
-
-                    // Insert Record in DB
-                    notesDB.insertRecord(NotesHeading, NotesDetails, NotesDate);
-
-                    finish();
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-
-                // Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
+        // Set handler for Save FAB button.
+        FloatingActionButton fabbtnSaveNote = (FloatingActionButton) findViewById(R.id.fabSaveNote);
+        fabbtnSaveNote.setOnClickListener(this);
 
         // Show the Up button in the action bar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -91,8 +65,7 @@ public class NoteDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(NoteDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(NoteDetailFragment.ARG_ITEM_ID));
+            arguments.putString(NoteDetailFragment.ARG_ITEM_ID, getIntent().getStringExtra(NoteDetailFragment.ARG_ITEM_ID));
 
             fragment = new NoteDetailFragment();
             fragment.setArguments(arguments);
@@ -100,11 +73,6 @@ public class NoteDetailActivity extends AppCompatActivity {
                     .add(R.id.note_detail_container, fragment)
                     .commit();
         }
-
-
-
-
-
     }
 
     @Override
@@ -122,5 +90,45 @@ public class NoteDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        switch (id){
+            case R.id.fabSaveNote:
+                saveNotesToDb();
+                break;
+        }
+    }
+
+    private void saveNotesToDb() {
+        try{
+            String NotesHeading = fragment.getNotesHeading();
+            String NotesDetails = fragment.getNotesDescription();
+
+            // Generate Date and insert in DB
+            Calendar cal = Calendar.getInstance();
+            String year = String.format("%02d", cal.get(Calendar.YEAR)); ;
+            String month = String.format("%02d", cal.get(Calendar.MONTH)+1);
+            String day = String.format("%02d", cal.get(Calendar.DAY_OF_MONTH));
+            String hour = String.format("%02d", cal.get(Calendar.HOUR));
+            String minutes = String.format("%02d", cal.get(Calendar.MINUTE));
+            String seconds = String.format("%02d", cal.get(Calendar.SECOND));
+
+            String NotesDate = year + "-" + month + "-" + day + "-" + hour + "-" + minutes + "-" + seconds;
+
+
+            // Insert Record in DB
+            notesDB.insertRecord(NotesHeading, NotesDetails, NotesDate);
+
+            finish();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+
     }
 }

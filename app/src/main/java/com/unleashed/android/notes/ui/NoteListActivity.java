@@ -57,8 +57,6 @@ public class NoteListActivity extends AppCompatActivity
                 // Add code here to open new dialog box to enter item notes
                 showNewNotesDialog();
 
-//                // Snackbar is a toast message kind of message at the bottom of the screen.
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 

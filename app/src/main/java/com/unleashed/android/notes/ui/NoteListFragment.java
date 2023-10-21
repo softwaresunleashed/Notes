@@ -82,15 +82,9 @@ public class NoteListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         cardArrayAdapter = new CardArrayAdapter(getActivity().getApplicationContext(), R.layout.list_item_card);
 
         updateNotesFromDB();
-
-
-
-
 
     }
 
@@ -127,14 +121,11 @@ public class NoteListFragment extends ListFragment {
                 Card card = new Card(noteHeading, noteDescription, noteDate);
                 cardArrayAdapter.add(card);
 
-                //Toast.makeText(this, "\nEmployee ID: " + c.getString(0) + "\nEmployee Name: " + c.getString(1) + "\nEmployee Salary: " + c.getString(2), Toast.LENGTH_LONG).show();
             }
             while (cur.moveToNext());
         }
 
         setListAdapter(cardArrayAdapter);
-
-
     }
 
 
